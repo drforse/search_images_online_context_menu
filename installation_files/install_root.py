@@ -5,7 +5,7 @@ import pathlib
 
 def main():
     python_path = sys.executable
-    script_dir = pathlib.Path(__file__).parent
+    script_dir = pathlib.Path(__file__).parent.parent
 
     parent_key = winreg.CreateKey(winreg.HKEY_CLASSES_ROOT, r"*\shell\Search Image Online")
     winreg.SetValueEx(parent_key, "MUIVerb", 0, winreg.REG_SZ, "Search Image Online")
