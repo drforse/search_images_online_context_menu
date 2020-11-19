@@ -9,6 +9,7 @@ class BaseSearch:
 
     def __init__(self):
         self.error = None
+        self.error_text: str = ""
 
     def get_url(self, image_path: str) -> str:
         raise NotImplementedError
@@ -18,10 +19,10 @@ class BaseSearch:
             webbrowser.open(self.get_url(image_path))
         except PayloadTooLarge as e:
             self.error = e
-            print("Файл слишком большой")
+            self.error_text = "Файл слишком большой"
         except Exception as e:
             self.error = e
-            print(e)
+            self.error_text = str(e)
 
     def check_result(self, result):
         if result.status_code == 200:

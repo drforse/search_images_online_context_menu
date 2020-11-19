@@ -23,7 +23,7 @@ class YandexSearch(BaseSearch):
             webbrowser.open(self.get_url(image_path))
         except PayloadTooLarge as e:
             self.error = e
-            print("Яндекс: пук-среньк, файл слишком большой")
+            self.error_text = "Яндекс: пук-среньк, файл слишком большой"
         except Exception as e:
             self.error = e
-            print(e)
+            self.error_text = str(e)

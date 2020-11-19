@@ -1,4 +1,6 @@
 import argparse
+import ctypes
+import winsound
 
 from search_images_online.utils import get_search_object_by_engine
 from search_images_online.exceptions import SearchEngineNotFound
@@ -14,12 +16,14 @@ def main():
     try:
         search = get_search_object_by_engine(search_engine)
     except SearchEngineNotFound:
-        print(f"Search engine {search_engine} not supported.")
-        input("Press Enter to exit")
+        winsound.PlaySound("SystemHand", winsound.SND_ALIAS)
+        ctypes.windll.user32.MessageBoxW(
+            0, f"Search engine {search_engine} not supported.", u"Reverse Image Search Error", 0x1000)
         exit()
     search.search(image_path)
     if search.error:
-        input("Press Enter to exit")
+        winsound.PlaySound("SystemHand", winsound.SND_ALIAS)
+        ctypes.windll.user32.MessageBoxW(0, search.error_text, u"Reverse Image Search Error", 0x1000)
 
 
 if __name__ == "__main__":
