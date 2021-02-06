@@ -3,7 +3,7 @@ import ctypes
 import winsound
 
 from search_images_online.utils import get_search_object_by_engine
-from search_images_online.exceptions import SearchEngineNotFound
+from search_images_online.exceptions import SearchEngineNotFound, ConfigError
 
 
 def main():
@@ -19,6 +19,11 @@ def main():
         winsound.PlaySound("SystemHand", winsound.SND_ALIAS)
         ctypes.windll.user32.MessageBoxW(
             0, f"Search engine {search_engine} not supported.", u"Reverse Image Search Error", 0x1000)
+        exit()
+    except ConfigError as e:
+        winsound.PlaySound("SystemHand", winsound.SND_ALIAS)
+        ctypes.windll.user32.MessageBoxW(
+            0, f"Config error: {e}", u"Reverse Image Search Error", 0x1000)
         exit()
     search.search(image_path)
     if search.error:
